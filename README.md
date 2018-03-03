@@ -66,7 +66,7 @@ Please create an application (CLI or HTTP API) which solves this problem. Create
  The solution below runs in O(n) time.
 
 
-** Build & Run **
+**Build & Run**
 -------------
 
 You can run the application in the following manners
