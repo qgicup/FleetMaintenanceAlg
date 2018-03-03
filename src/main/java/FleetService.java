@@ -10,17 +10,17 @@ import exception.FleetExceptionType;
 public class FleetService {
 
     // Constants for validation
-    private static final int MIN_NO_DISTRICTS = 1;
-    private static final int MAX_NO_DISTRICTS = 100;
+    public static final int MIN_NO_DISTRICTS = 1;
+    public static final int MAX_NO_DISTRICTS = 100;
 
-    private static final int MIN_NO_VEHICLE_IN_DISTRICT = 0;
-    private static final int MAX_NO_VEHICLE_IN_DISTRICT = 1000;
+    public static final int MIN_NO_VEHICLE_IN_DISTRICT = 0;
+    public static final int MAX_NO_VEHICLE_IN_DISTRICT = 1000;
 
-    private static final int MIN_NO_VEHICLE_MANAGED_BY_FM = 1;
-    private static final int MAX_NO_VEHICLE_MANAGED_BY_FM = 999;
+    public static final int MIN_NO_VEHICLE_MANAGED_BY_FM = 1;
+    public static final int MAX_NO_VEHICLE_MANAGED_BY_FM = 999;
 
-    private static final int MIN_NO_VEHICLE_MANAGED_BY_FE = 1;
-    private static final int MAX_NO_VEHICLE_MANAGED_BY_FE = 1000;
+    public static final int MIN_NO_VEHICLE_MANAGED_BY_FE = 1;
+    public static final int MAX_NO_VEHICLE_MANAGED_BY_FE = 1000;
 
     /**
      * This function will calculate the minimum number of fleet engineers (FE) required to
@@ -61,10 +61,10 @@ public class FleetService {
             throw new FleetException(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FE,
                                      "Number of vehicles managed by Fleet Engineer has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FE + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FE + "]. Current value: [" + vehiclesMaintainedByFE + "]");
 
+        // 2. Check the districts one by one
         int totalFE = 0;
         int bestGainWithFM = 0;
 
-        // 2. Check the districts one by one
         for(int i = 0; i < vehicles.length; i++) {
             final int noVehicles = vehicles[i];
 
