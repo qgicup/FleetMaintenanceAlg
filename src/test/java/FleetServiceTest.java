@@ -2,10 +2,10 @@ import exception.FleetException;
 import exception.FleetExceptionType;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import service.FleetService;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 /**
  * Created with ♥ by georgeplaton on 03.03.18.

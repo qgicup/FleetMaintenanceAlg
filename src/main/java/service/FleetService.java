@@ -1,7 +1,8 @@
+package service;
+
 import exception.FleetException;
 import exception.FleetExceptionType;
-
-
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -9,6 +10,7 @@ import exception.FleetExceptionType;
  *
  * Created with ♥ by georgeplaton on 02.03.18.
  */
+@Service
 public class FleetService {
 
     // Constants for validation
