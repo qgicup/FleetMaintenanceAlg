@@ -2,6 +2,8 @@
 Sample algorithm for calculating fleet maintenance
 
 
+**Problem**
+-------------
 You are given a []int scooters, which has as many elements as there are
 districts in Berlin that Coup operates in. For each i, scooters[i] is the
 number of scooters in that district (0-based index).
@@ -44,6 +46,28 @@ Please create an application (CLI or HTTP API) which solves this problem. Create
 
 
 **Solution**
+-------------
+
+**Line of thought**
+
+ Algorithm :
+ 
+ Since we have only one Fleet Manager (FM), it's important to make sure he will be working on a district which can best benefit from his capacity of maintainig vehicles.
+ That means trying to maximize the number of vehicles a FM can work on in a certain district, so there is as least as possible work left for other FE in the same district.
+ 
+     * E.g  vehicles [11, 15, 13], vehiclesMaintainedByFM : 9, vehiclesMaintainedByFE: 5
+     *      It's best if FM works in district vehicles[0] which has 11 vehicles.
+     *      vehicles[0] district: 11 - 9 (1 FM) = 2 vehicles left to be managed (requires 1 FE).
+     *      vehicles[1] district: 15 - 9 (1 FM) = 6 vehicles left to be managed (requires 2 FE).
+     *      vehicles[2] district: 13 - 9 (1 FM) = 4 vehicles left to be managed (requires 1 FE).
+     *
+     *      From the above you can see that the best option for FM is to go in district 0 or 2
+ 
+ The solution below runs in O(n) time.
+
+
+** Build & Run **
+-------------
 
 You can run the application in the following manners
 
@@ -70,7 +94,6 @@ Please enter the number of scooters managed by Fleet Engineer:
 2. via Webserver by issuing HTTP POST requests:
 
 $ ./gradlew bootRun
-
 
 In a separate shell:
 
