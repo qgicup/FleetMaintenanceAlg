@@ -4,6 +4,10 @@ import com.coup.exception.FleetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.coup.restapi.dto.FleetEngineerRequestDTO;
 import com.coup.restapi.dto.FleetEngineerResponseDTO;
@@ -28,8 +32,10 @@ public class FleetController {
         return "Hello from FleetManagement API!";
     }
 
-    @RequestMapping(value = "/calculateFleetEngineers", method = RequestMethod.GET)
-    public @ResponseBody FleetEngineerResponseDTO calculateFleetEngineers(@RequestBody FleetEngineerRequestDTO fleetEngineerRequestDTO) {
+
+    @RequestMapping(value = "/calculateFleetEngineers", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<Object> calculateFleetEngineers(@RequestBody FleetEngineerRequestDTO fleetEngineerRequestDTO) {
 
         FleetEngineerResponseDTO responseDTO = new FleetEngineerResponseDTO();
 
@@ -41,8 +47,11 @@ public class FleetController {
             responseDTO.setNumFleetEngineers(noEngineers);
         } catch (FleetException e) {
             log.error("Failed to calculate the number of engineers required due error.", e);
+            return new ResponseEntity<Object>(
+                    e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
         }
 
-        return responseDTO;
+        return new ResponseEntity<Object>(
+                responseDTO, new HttpHeaders(), HttpStatus.OK);
     }
 }

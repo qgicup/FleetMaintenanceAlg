@@ -1,5 +1,7 @@
 package com.coup.restapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Arrays;
 
 /**
@@ -31,18 +33,22 @@ public class FleetEngineerRequestDTO {
         this.scooters = scooters;
     }
 
+    @JsonProperty("c")
     public int getVehiclesManagedByFM() {
         return vehiclesManagedByFM;
     }
 
+    @JsonProperty("c")
     public void setVehiclesManagedByFM(int vehiclesManagedByFM) {
         this.vehiclesManagedByFM = vehiclesManagedByFM;
     }
 
+    @JsonProperty("p")
     public int getVehiclesManagedByFE() {
         return vehiclesManagedByFE;
     }
 
+    @JsonProperty("p")
     public void setVehiclesManagedByFE(int vehiclesManagedByFE) {
         this.vehiclesManagedByFE = vehiclesManagedByFE;
     }
