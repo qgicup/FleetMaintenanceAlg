@@ -57,10 +57,6 @@ public class FleetService {
         if(vehiclesMaintainedByFE < MIN_NO_VEHICLE_MANAGED_BY_FE || vehiclesMaintainedByFE > MAX_NO_VEHICLE_MANAGED_BY_FE)
             throw new FleetException("Number of vehicles managed by Fleet Engineer has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FE + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FE + "]. Current value: [" + vehiclesMaintainedByFE + "]");
 
-        // TODO find the district with the min number of left vehicles to be managed, after FM works on them
-
-        // TODO calculate all other districts (number of FE needed)
-
         int totalFE = 0;
         int bestGainWithFM = 0;
 
@@ -87,7 +83,6 @@ public class FleetService {
             if(gainWithFM > bestGainWithFM)
                 bestGainWithFM = gainWithFM;
         }
-
 
         // From the total number of engineers needed, substract the best saving that the FM has brought.
         return totalFE - bestGainWithFM;
