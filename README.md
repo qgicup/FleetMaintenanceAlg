@@ -41,3 +41,37 @@ expected output:
 { fleet_engineers: 7 }
 
 Please create an application (CLI or HTTP API) which solves this problem. Create a git repository and share the code with us through github or as a tar.gz. You can choose any programming language you are familiar with; java or ruby are preferred, though.
+
+
+**Solution**
+
+You can run the application in the following manners
+
+1. via CLI application :
+
+$ ./gradlew runApp
+
+and enter the requested parameters 
+E.g:
+````
+Please enter number of districts:
+3
+Please enter array elements:
+11
+15
+13
+Please enter the number of scooters managed by Fleet Manager:
+9
+Please enter the number of scooters managed by Fleet Engineer:
+5
+{fleet_engineers : 7}
+````
+
+2. via Webserver by issuing HTTP POST requests:
+
+$ ./gradlew bootRun
+
+
+In a separate shell:
+
+$ curl -XPOST -H "Content-Type: application/json" -d '{"scooters":[11, 15, 13], "C":9, "P":5}' localhost:8080/calculateFleetEngineers

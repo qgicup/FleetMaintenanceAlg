@@ -33,22 +33,22 @@ public class FleetEngineerRequestDTO {
         this.scooters = scooters;
     }
 
-    @JsonProperty("c")
+    @JsonProperty("C")
     public int getVehiclesManagedByFM() {
         return vehiclesManagedByFM;
     }
 
-    @JsonProperty("c")
+    @JsonProperty("C")
     public void setVehiclesManagedByFM(int vehiclesManagedByFM) {
         this.vehiclesManagedByFM = vehiclesManagedByFM;
     }
 
-    @JsonProperty("p")
+    @JsonProperty("P")
     public int getVehiclesManagedByFE() {
         return vehiclesManagedByFE;
     }
 
-    @JsonProperty("p")
+    @JsonProperty("P")
     public void setVehiclesManagedByFE(int vehiclesManagedByFE) {
         this.vehiclesManagedByFE = vehiclesManagedByFE;
     }
