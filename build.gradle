@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin:'application'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
@@ -46,6 +47,18 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
+}
+
+
+task runApp(type:JavaExec) {
+    logging.level = LogLevel.QUIET
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    main = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "com.coup.Cli"
+}
+
+run{
+    standardInput = System.in
 }
 
 apply from:'eclipse.gradle'
