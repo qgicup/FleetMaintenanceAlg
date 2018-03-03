@@ -98,3 +98,10 @@ $ ./gradlew bootRun
 In a separate shell:
 
 $ curl -XPOST -H "Content-Type: application/json" -d '{"scooters":[11, 15, 13], "C":9, "P":5}' localhost:8080/calculateFleetEngineers
+
+
+
+
+-----
+
+You can also run the tests, by doing ./gradlew test
