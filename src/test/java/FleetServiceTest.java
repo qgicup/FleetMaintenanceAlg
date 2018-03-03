@@ -110,10 +110,10 @@ public class FleetServiceTest {
     // INPUT VALIDATION TESTS
 
     /**
-     * Will test the validation of vehicles data.
+     * Will test the validation of vehicles data, when the number of districts its under the minimum.
      */
     @Test
-    public void testCaseValidationOfInputVehiclesData() throws FleetException {
+    public void testCaseValidationOfInputMinimumVehiclesData() throws FleetException {
 
         // 1. Num vehicles minimum
         int vehicles[] = new int[FleetService.MIN_NO_DISTRICTS - 1];
@@ -128,15 +128,32 @@ public class FleetServiceTest {
         // 2. Num vehicles max
         int vehicles2[] = new int[FleetService.MAX_NO_DISTRICTS + 1];
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles2, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
-
     }
 
     /**
-     * Will test the validation of number of vehicles maintained by FM.
+     * Will test the validation of vehicles data, when the number of districts its above the maximum.
+     */
+    @Test
+    public void testCaseValidationOfInputMaximumVehiclesData() throws FleetException {
+
+        // 1. Num vehicles max
+        int vehicles[] = new int[FleetService.MAX_NO_DISTRICTS + 1];
+        int vehiclesMaintainedByFM = 9;
+        int vehiclesMaintainedByFE = 5;
+
+        FleetService fleetService = new FleetService();
+        expectedException.expect(FleetException.class);
+        expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_DISTRICTS)));
+        Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+    }
+
+    /**
+     * Will test the validation of number of vehicles maintained by FM, when it's under the minimum.
+     *
      * They have to be between MIN_NO_VEHICLE_MANAGED_BY_FM and MAX_NO_VEHICLE_MANAGED_BY_FM
      */
     @Test
-    public void testCaseValidationOfInputVehiclesManagedByFMData() throws FleetException {
+    public void testCaseValidationOfInputMinimumVehiclesManagedByFMData() throws FleetException {
 
         // 1. Num vehicles to maintain minimum for FM
         int vehicles[] = {11, 15, 13};
@@ -147,21 +164,33 @@ public class FleetServiceTest {
         expectedException.expect(FleetException.class);
         expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FM)));
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+    }
 
-        // 2. Num vehicles to maintain max for FM
-        vehiclesMaintainedByFM = FleetService.MAX_NO_VEHICLE_MANAGED_BY_FM + 1;
+    /**
+     * Will test the validation of number of vehicles maintained by FM, when it's above the maximum.
+     *
+     * They have to be between MIN_NO_VEHICLE_MANAGED_BY_FM and MAX_NO_VEHICLE_MANAGED_BY_FM
+     */
+    @Test
+    public void testCaseValidationOfInputMaximumVehiclesManagedByFMData() throws FleetException {
 
+        // 1. Num vehicles to maintain maximum for FM
+        int vehicles[] = {11, 15, 13};
+        int vehiclesMaintainedByFM = FleetService.MAX_NO_VEHICLE_MANAGED_BY_FM + 1;
+        int vehiclesMaintainedByFE = FleetService.MIN_NO_VEHICLE_MANAGED_BY_FE + 1;
+
+        FleetService fleetService = new FleetService();
         expectedException.expect(FleetException.class);
         expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FM)));
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
     }
 
     /**
-     * Will test the validation of number of vehicles maintained by FE.
+     * Will test the validation of number of vehicles maintained by FE, when it's under the minimum.
      * They have to be between MIN_NO_VEHICLE_MANAGED_BY_FE and MAX_NO_VEHICLE_MANAGED_BY_FE
      */
     @Test
-    public void testCaseValidationOfInputVehiclesManagedByFEData() throws FleetException {
+    public void testCaseValidationOfInputVehiclesManagedByFEAsMinimum() throws FleetException {
 
         // 1. Num vehicles to maintain minimum for FE
         int vehicles[] = {11, 15, 13};
@@ -172,23 +201,32 @@ public class FleetServiceTest {
         expectedException.expect(FleetException.class);
         expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FE)));
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+    }
 
+    /**
+     * Will test the validation of number of vehicles maintained by FE, when it's above the maximum.
+     * They have to be between MIN_NO_VEHICLE_MANAGED_BY_FE and MAX_NO_VEHICLE_MANAGED_BY_FE
+     */
+    @Test
+    public void testCaseValidationOfInputVehiclesManagedByFEAsMaximum() throws FleetException {
 
-        // TODO this one won't test it correctly.
-        // 2. Num vehicles to maintain max for FE
-        vehiclesMaintainedByFE = FleetService.MAX_NO_VEHICLE_MANAGED_BY_FE + 1;
+        // 1. Num vehicles to maintain maximum for FE
+        int vehicles[] = {11, 15, 13};
+        int vehiclesMaintainedByFM = FleetService.MIN_NO_VEHICLE_MANAGED_BY_FM + 1;
+        int vehiclesMaintainedByFE = FleetService.MAX_NO_VEHICLE_MANAGED_BY_FE + 1;
 
+        FleetService fleetService = new FleetService();
         expectedException.expect(FleetException.class);
         expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FE)));
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
     }
 
     /**
-     * Will test the validation of number of vehicles per district.
+     * Will test the validation of number of vehicles per district, when it's under the minimum
      * They have to be between MIN_NO_VEHICLE_IN_DISTRICT and MAX_NO_VEHICLE_IN_DISTRICT
      */
     @Test
-    public void testCaseValidationOfInputVehiclesPerDistrictData() throws FleetException {
+    public void testCaseValidationOfInputVehiclesPerDistrictAsMinimum() throws FleetException {
 
         // 1. Num vehicles in district as minimum
         int vehicles[] = {-5, 10, 13};
@@ -205,5 +243,23 @@ public class FleetServiceTest {
         expectedException.expect(FleetException.class);
         expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FE)));
         Assert.assertEquals(0, fleetService.calculateMinFE(vehicles2, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+    }
+
+    /**
+     * Will test the validation of number of vehicles per district, when it's above the maximum
+     * They have to be between MIN_NO_VEHICLE_IN_DISTRICT and MAX_NO_VEHICLE_IN_DISTRICT
+     */
+    @Test
+    public void testCaseValidationOfInputVehiclesPerDistrictAsMaximum() throws FleetException {
+
+        // 1. Num vehicles in district as maximum
+        int vehicles[] = {5, FleetService.MAX_NO_VEHICLE_IN_DISTRICT + 1, 13};
+        int vehiclesMaintainedByFM = FleetService.MIN_NO_VEHICLE_MANAGED_BY_FM + 1;
+        int vehiclesMaintainedByFE = FleetService.MIN_NO_VEHICLE_MANAGED_BY_FE + 1;
+
+        FleetService fleetService = new FleetService();
+        expectedException.expect(FleetException.class);
+        expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_VEHICLE_IN_DISTRICT)));
+        Assert.assertEquals(0, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
     }
 }
