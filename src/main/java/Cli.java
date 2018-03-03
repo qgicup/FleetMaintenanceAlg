@@ -1,15 +1,13 @@
 import exception.FleetException;
+import service.FleetService;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
  * Created with ♥ by georgeplaton on 02.03.18.
  */
-public class Main {
+public class Cli {
 
 
     public static void main(String[] args) throws IOException {
