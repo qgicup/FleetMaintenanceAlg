@@ -1,10 +1,19 @@
-import static org.junit.Assert.*;
+import exception.FleetException;
+import exception.FleetExceptionType;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 
 /**
  * Created with ♥ by georgeplaton on 03.03.18.
  */
 public class FleetServiceTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
 
     /**
@@ -61,4 +70,60 @@ public class FleetServiceTest {
             Assert.fail("Test should not have failed. Exception :" +  e.getMessage());
         }
     }
+
+    /**
+     * Will test districts that have less scouters than the capacity of FM or FE.
+     * In this manner, it will be complicated to decide where FM will get involved, which can potentially cause problems, if FM does not get involved anywhere.
+     */
+    @Test
+    public void testCaseWithVehiclesLessThanFMOrFECapacity() {
+        int vehicles[] = {1, 4, 3};
+        int vehiclesMaintainedByFM = 9;
+        int vehiclesMaintainedByFE = 5;
+
+        FleetService fleetService = new FleetService();
+        try {
+            Assert.assertEquals(2, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+        } catch (FleetException e) {
+            Assert.fail("Test should not have failed. Exception :" +  e.getMessage());
+        }
+    }
+
+    /**
+     * Will test districts that have 0 vehicles inside.
+     * For these districts, there should be no FE or FM involved.
+     */
+    @Test
+    public void testCaseDistrictsWithZeroVehicles() {
+        int vehicles[] = {0, 0, 0, 1, 4, 3, 0, 0, 0, 0, 0};
+        int vehiclesMaintainedByFM = 9;
+        int vehiclesMaintainedByFE = 5;
+
+        FleetService fleetService = new FleetService();
+        try {
+            Assert.assertEquals(2, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+        } catch (FleetException e) {
+            Assert.fail("Test should not have failed. Exception :" +  e.getMessage());
+        }
+    }
+
+    /**
+     * Will test the validation of vehicles data.
+     */
+    @Test
+    public void testCaseValidationOfInputVehiclesData() throws FleetException {
+
+        // 1. No vehicles minimum
+        int vehicles[] = {};
+        int vehiclesMaintainedByFM = 9;
+        int vehiclesMaintainedByFE = 5;
+
+        FleetService fleetService = new FleetService();
+        expectedException.expect(FleetException.class);
+        expectedException.expect(hasProperty("exceptionType", is(FleetExceptionType.INVALID_NUM_DISTRICTS)));
+        Assert.assertEquals(2, fleetService.calculateMinFE(vehicles, vehiclesMaintainedByFM, vehiclesMaintainedByFE));
+    }
+
+
+
 }
