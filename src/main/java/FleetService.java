@@ -1,4 +1,5 @@
-
+import exception.FleetException;
+import exception.FleetExceptionType;
 
 /**
  *
@@ -49,13 +50,16 @@ public class FleetService {
 
         // 1. Validate the input
         if(vehicles.length < MIN_NO_DISTRICTS || vehicles.length > MAX_NO_DISTRICTS)
-            throw new FleetException("Number of districts has to be between [" + MIN_NO_DISTRICTS + "] and [" + MAX_NO_DISTRICTS + "]. Current value: [" + vehicles.length + "]");
+            throw new FleetException(FleetExceptionType.INVALID_NUM_DISTRICTS,
+                                     "Number of districts has to be between [" + MIN_NO_DISTRICTS + "] and [" + MAX_NO_DISTRICTS + "]. Current value: [" + vehicles.length + "]");
 
         if(vehiclesMaintainedByFM < MIN_NO_VEHICLE_MANAGED_BY_FM || vehiclesMaintainedByFM > MAX_NO_VEHICLE_MANAGED_BY_FM)
-            throw new FleetException("Number of vehicles managed by Fleet Manager has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FM + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FM + "]. Current value: [" + vehiclesMaintainedByFM + "]");
+            throw new FleetException(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FM,
+                                     "Number of vehicles managed by Fleet Manager has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FM + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FM + "]. Current value: [" + vehiclesMaintainedByFM + "]");
 
         if(vehiclesMaintainedByFE < MIN_NO_VEHICLE_MANAGED_BY_FE || vehiclesMaintainedByFE > MAX_NO_VEHICLE_MANAGED_BY_FE)
-            throw new FleetException("Number of vehicles managed by Fleet Engineer has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FE + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FE + "]. Current value: [" + vehiclesMaintainedByFE + "]");
+            throw new FleetException(FleetExceptionType.INVALID_NUM_VEHICLE_MANAGED_BY_FE,
+                                     "Number of vehicles managed by Fleet Engineer has to be between [" + MIN_NO_VEHICLE_MANAGED_BY_FE + "] and [" + MAX_NO_VEHICLE_MANAGED_BY_FE + "]. Current value: [" + vehiclesMaintainedByFE + "]");
 
         int totalFE = 0;
         int bestGainWithFM = 0;
@@ -66,7 +70,8 @@ public class FleetService {
 
             // 2.1 Validate num vehicles in district
             if (noVehicles < MIN_NO_VEHICLE_IN_DISTRICT || noVehicles > MAX_NO_VEHICLE_IN_DISTRICT) {
-                throw new FleetException("Number of vehicles in one district has to be between [" + MIN_NO_VEHICLE_IN_DISTRICT + "] < current value : " + noVehicles + " <  [" + MAX_NO_VEHICLE_IN_DISTRICT + "]");
+                throw new FleetException(FleetExceptionType.INVALID_NUM_VEHICLE_IN_DISTRICT,
+                                         "Number of vehicles in one district has to be between [" + MIN_NO_VEHICLE_IN_DISTRICT + "] < current value : " + noVehicles + " <  [" + MAX_NO_VEHICLE_IN_DISTRICT + "]");
             }
 
             // 2.2 Calculate number of FE needed here
