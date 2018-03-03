@@ -43,6 +43,8 @@ public class FleetService {
      *
      *      From the above you can see that the best option for FM is to go in district 0 or 2
      *
+     *      The solution below runs in O(n) time.
+     *
      * @param vehicles                      - array of districts. Each element of the array denotes the number of vehicles inside that district.
      *                                        Each vehicle number must follow (MIN_NO_VEHICLE_IN_DISTRICT < vehicle number < MAX_NO_VEHICLE_IN_DISTRICT)
      * @param vehiclesMaintainedByFM        - the number of vehicles one fleet manager (FM) can maintain
