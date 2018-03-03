@@ -1,6 +1,8 @@
 import exception.FleetException;
 import exception.FleetExceptionType;
 
+
+
 /**
  *
  * This is the main service which does all fleet related logic.
@@ -83,7 +85,6 @@ public class FleetService {
 
             // 2.4 Calculate if it's a good district for FM to get involved, compared with past districts
             int gainWithFM = noFE - noFEWithFM;
-            System.out.println("On district [" + i + "], there are [" + noVehicles + "] vehicles. We need " + noFE + " FE. Together with FM, we need " + noFEWithFM + " FE. FM brings a gain of : " + gainWithFM);
 
             if(gainWithFM > bestGainWithFM)
                 bestGainWithFM = gainWithFM;
