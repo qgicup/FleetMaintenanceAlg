@@ -1,8 +1,10 @@
-import exception.FleetException;
-import exception.FleetExceptionType;
-import org.junit.*;
+import com.coup.exception.FleetException;
+import com.coup.exception.FleetExceptionType;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import service.FleetService;
+import com.coup.service.FleetService;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
